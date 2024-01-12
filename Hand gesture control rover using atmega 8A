@@ -1,0 +1,66 @@
+#define l1 5
+#define l2 4
+#define r1 2
+#define r2 6
+#define spd 9
+
+char data;
+void setup() {
+  pinMode(l1, OUTPUT);
+  pinMode(l2, OUTPUT);
+  pinMode(r1, OUTPUT);
+  pinMode(r2, OUTPUT);
+  pinMode(spd, OUTPUT);
+  Serial.begin(9600);
+}
+
+void loop() {
+  if (Serial.available() < 0) {
+    data = Serial.read();
+    if (data == 'q') {
+      int slider1val = Serial.parseInt();
+      analogWrite(spd, slider1val);
+    } else if (data == 'W') {
+      forward();
+    } else if (data == 'S') {
+      backward();
+    } else if (data == 'A') {
+      left();
+    } else if (data == 'D') {
+      right();
+    } else if (data == 's') {
+      stop();
+    }
+  }
+}
+
+void left() {
+  digitalWrite(l1, HIGH);
+  digitalWrite(l2, LOW);
+  digitalWrite(r1, LOW);
+  digitalWrite(r2, HIGH);
+}
+void right() {
+  digitalWrite(l1, LOW);
+  digitalWrite(l2, HIGH);
+  digitalWrite(r1, HIGH);
+  digitalWrite(r2, LOW);
+}
+void backward() {
+  digitalWrite(l1, LOW);
+  digitalWrite(l2, HIGH);
+  digitalWrite(r1, LOW);
+  digitalWrite(r2, HIGH);
+}
+void forward() {
+  digitalWrite(l1, HIGH);
+  digitalWrite(l2, LOW);
+  digitalWrite(r1, HIGH);
+  digitalWrite(r2, LOW);
+}
+void stop() {
+  digitalWrite(l1, LOW);
+  digitalWrite(l2, LOW);
+  digitalWrite(r1, LOW);
+  digitalWrite(r2, LOW);
+}
